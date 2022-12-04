@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
-
+const HomeSchema = require("./models/userSchema");
 passport.serializeUser(function(user, done) {
     /*
     From the user take just the id (to minimize the cookie size) and just pass the id of the user
@@ -22,11 +22,13 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GoogleStrategy({
     clientID:process.env.GOOGLE_CLIENT_ID,
     clientSecret:process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL:process.env.GOOGLE_CALLBACK_URL,
+    callbackURL:"http://localhost:3000/google/callback",
     passReqToCallback:true
   },
   function(request, accessToken, refreshToken, profile, done) {
-    console.log(profile)
-    return done(null, profile);
+    console.log(profile);
+    return done(null,profile)
+  
   }
-));
+    ))
+
