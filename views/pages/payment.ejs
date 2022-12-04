@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h1>welcome to payment portal</h1>
+    <button id="rzp-button1">Pay Now</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+axios.post('/order').then((info) => {
+console.log(info)
+var options = {
+"key": "rzp_test_iQsqC7JbMx1RM2", // Enter the Key ID generated from the Dashboard
+"name": "BRL",
+"description": "Test Transaction",
+"image": "https://d33wubrfki0168.cloudfront.net/c06c72079df0344c790062d36599987d92389a1b/a12e8/assets/images/site-logo-1.svg",
+"order_id": info.data.id, //This is a sample Order ID. Pass the 'id' obtained in the response of Step 1
+"callback_url": "/is-order-complete",
+"theme": {
+"color": "#3399cc"
+}
+};
+var rzp1 = new Razorpay (options);
+document.getElementById('rzp-button1').onclick= function(e) {
+rzp1.open();
+e.preventDefault();
+}
+
+
+
+
+
+})
+</script>
+</body>
+</html>

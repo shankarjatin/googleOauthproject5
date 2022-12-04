@@ -1,10 +1,22 @@
 const express = require("express");
 const Router  = express.Router();
 require('dotenv').config();
-// const HomeSchema = require("../models/homeSchema");
+const HomeSchema = require("../models/userSchema");
 require("../passport-setup")
 const cookieSession = require('cookie-session')
 const passport =require("passport");
+const bodyParser = require("body-parser");
+Router.use(bodyParser.json()) // for parsing application/json
+Router.use(bodyParser.urlencoded({ extended: true }))
+
+
+
+const Razorpay = require('razorpay')
+
+const razorpay = new Razorpay({
+key_id: "rzp_test_iQsqC7JbMx1RM2",
+key_secret: "CTtqBiR4a8g9hxgirSeJqgzX"
+})
 
 
 Router.use(cookieSession({
@@ -55,38 +67,69 @@ Router.get('/logout', (req, res) => {
 })
 
 
-// Router.post("/good",async(req,res)=>{
-//   try{
-//           const {
-//               uname,
-//               email,
-//               password,
-//               cpassword
-//           }=req.body;
+Router.post("/good",async(req,res)=>{
+  try{
+          const {
+              name,
+              email,
+              year
+          }=req.body;
           
-//                              const  userData = new HomeSchema({
-//                               uname,
-//                               email,
-//                               password,
-//                              })
-//                              userData.save( err=>{
-//                               if(err){
-//                                   console.log(err)
-//                               }else{
-//                                 console.log("data saved")          
-//                              }})
-//                  }
+                             const  userData = new HomeSchema({
+                              name,
+                              email,
+                              year
+                             })
+                             userData.save( err=>{
+                              if(err){
+                                  console.log(err)
+                              }else{
+                                console.log("data saved")
+                                res.render("pages/payment")          
+                             }})
+                 }
   
-// catch(e){
-//   console.log(e)
-// }})
+catch(e){
+  console.log(e)
+}})
 
 
+Router.post('/order', (req, res) => {
+  let options = {
+  amount: 50000,
+  currency: "INR",
+  };
+  razorpay.orders.create(options, function (err, order) {
+  console.log(order)
+  res.json (order)
+  })
+  })
 
 
+  // Router.post('/is-order-complete', (req, res) => {
 
-
-
+  //   razorpay.payments.fetch(req.body.razorpay_payment_id).then((paymentDocument) => {
+  //   if(paymentDocument.status == "captured")
+  //   {res.send('Payment successful")}
+  //   else{res.redirect('/')}
+  // })
+  //   })
+Router.post("/is-order-complete" ,(req,res)=>{
+  razorpay.payments.fetch(req.body.razorpay_payment_id).then((paymentDocument) => {
+    if(paymentDocument.status == "captured")
+    {res.send("Payment successful")
+    
+    const orderId= req.body.razorpay_order_id
+    console.log(orderId);
+    // const orderId = req.body.razorpay_payment_id;
+    // HomeSchema.updateOne({
+    //     $set:{"orderId":orderId}})
+  
+  
+  }
+    else{res.send('failed')}
+  })
+})
 
 
 module.exports = Router;
