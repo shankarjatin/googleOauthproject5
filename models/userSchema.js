@@ -14,6 +14,10 @@ const userSchema = new schema({
     },
     year:{
         type:String
+    },
+    orderId:{
+        type:String,
+        required:false
     }
     // name:{
     //     type:String,

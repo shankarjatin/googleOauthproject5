@@ -86,7 +86,24 @@ Router.post("/good",async(req,res)=>{
                                   console.log(err)
                               }else{
                                 console.log("data saved")
-                                res.render("pages/payment",{name:req.user.displayName})          
+                                // res.render("pages/review",{name:req.user.displayName}) 
+                                var user = HomeSchema.find({name})
+                                user.exec(function(err,data){
+                                  if(err){console.log(err)}
+                                  else{
+                                    console.log(data)
+                                  }
+                                })
+                                // var user = HomeSchema.find({name})
+                                res.render("pages/payment",{name:req.user.displayName,year:year,email:email}) 
+                                // user.exec(function(err,data){
+                                //   if(err){console.log(err)}
+                                //   else{
+                                //     res.render("pages/payment",{name:req.user.displayName,year:year,email:email}) 
+                                //   }
+                                // })
+                                  
+                               
                              }})
                  }
   
@@ -94,7 +111,9 @@ catch(e){
   console.log(e)
 }})
 
-
+Router.get("/order",(req,res)=>{
+  res.render("pages/payment",{name:req.user.displayName}) 
+})
 Router.post('/order', (req, res) => {
   let options = {
   amount: 50000,
@@ -115,18 +134,25 @@ Router.post('/order', (req, res) => {
   //   else{res.redirect('/')}
   // })
   //   })
-Router.post("/is-order-complete" ,(req,res)=>{
+Router.post("/is-order-complete" ,isLoggedIn,(req,res)=>{
   razorpay.payments.fetch(req.body.razorpay_payment_id).then((paymentDocument) => {
     if(paymentDocument.status == "captured")
     {
-    
+      const email=req.user.emails[0].value
+      const name = req.user.displayName
     const orderId= req.body.razorpay_order_id
-    const name = req.body.name
-//  HomeSchema.updateOne({name:req.body.name},{
-//         $set:{"orderId":orderId}})
+    // HomeSchema.orderId.aggregate( [
+    //   {
+    //     $addFields: { "orderId": orderId }
+    //   }
+    // ] )
+    // const email=req.user.emails[0].value
+ HomeSchema.updateOne({"name":name},{
+        $set:{"orderId":orderId}})
     const  userData1 = new PaymentSchema({
       orderId,
-      name
+      name,
+      email
      })
      userData1.save( err=>{
           if(err){
