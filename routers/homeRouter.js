@@ -2,6 +2,7 @@ const express = require("express");
 const Router  = express.Router();
 require('dotenv').config();
 const HomeSchema = require("../models/userSchema");
+const PaymentSchema = require("../models/payment-data");
 require("../passport-setup")
 const cookieSession = require('cookie-session')
 const passport =require("passport");
@@ -85,7 +86,7 @@ Router.post("/good",async(req,res)=>{
                                   console.log(err)
                               }else{
                                 console.log("data saved")
-                                res.render("pages/payment")          
+                                res.render("pages/payment",{name:req.user.displayName})          
                              }})
                  }
   
@@ -117,18 +118,32 @@ Router.post('/order', (req, res) => {
 Router.post("/is-order-complete" ,(req,res)=>{
   razorpay.payments.fetch(req.body.razorpay_payment_id).then((paymentDocument) => {
     if(paymentDocument.status == "captured")
-    {res.send("Payment successful")
+    {
     
     const orderId= req.body.razorpay_order_id
-    console.log(orderId);
-    // const orderId = req.body.razorpay_payment_id;
-    // HomeSchema.updateOne({
-    //     $set:{"orderId":orderId}})
-  
-  
+    const name = req.body.name
+//  HomeSchema.updateOne({name:req.body.name},{
+//         $set:{"orderId":orderId}})
+    const  userData1 = new PaymentSchema({
+      orderId,
+      name
+     })
+     userData1.save( err=>{
+          if(err){
+              console.log(err)
+          }else{
+            console.log("orderdata saved")
+                    
+         }})
+         res.send("Payment successful")
+
+
+
+ 
   }
     else{res.send('failed')}
   })
+
 })
 
 

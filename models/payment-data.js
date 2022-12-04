@@ -7,13 +7,10 @@ const userSchema = new schema({
         type:String
         
     },
-    email:{
+   
+    orderId:{
         type:String,
-        unique:true
-      
-    },
-    year:{
-        type:String
+        required:false
     }
     // name:{
     //     type:String,
@@ -37,9 +34,9 @@ const userSchema = new schema({
 //     }
 // })
 
-const Userinfo = new mongoose.model('Userinfo', userSchema);
+const UserPayment = new mongoose.model('UserPayment', userSchema);
 
-module.exports = Userinfo;
+module.exports = UserPayment;
 
 
 
