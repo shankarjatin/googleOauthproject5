@@ -7,6 +7,7 @@ const mongodb = require("mongodb");
 const bodyParser = require("body-parser");
 const DB = "mongodb+srv://shankarjatin:jaiHanumanji@cluster0.b1no4tl.mongodb.net/userData4?retryWrites=true&w=majority";
 app.set("view engine","ejs")
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 

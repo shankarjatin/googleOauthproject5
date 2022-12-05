@@ -1,22 +1,47 @@
 <!doctype html>
 <html>
 <head>
-    <title>Node Authentication</title>
+    <title>Hashes Registration</title>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
     <style>
-        body        { padding-top:80px; }
+        body        { padding-top:80px; 
+            background-color: #ffbf00;
+}
+#regidiv{
+    background-color: #ffcf40;
+}
+#hash{
+    background-color: #ffbf00;
+    font-weight: bolder;
+}
+#brl{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 900;
+}
+.btngg{
+    background-color: 	#a67c00;
+    color:black;
+    height:5% ;
+    width:5% ;
+}
     </style>
 </head>
 <body>
+    <div class="jumbotron text-center" id="hash" >
+        <h2 id="brl">BRL presents</h2>
+        <h1> Hashes</h1>
+        </div>
 <div class="container">
 
-    <div class="jumbotron text-center">
-        <h1><span class="fa fa-lock"></span> Registration</h1>
+    <div class="jumbotron text-center" id="regidiv">
+        <h1><span class="glyphicon glyphicon-user
+            "></span> Registration</h1>
 
         <p>Login or Register with:</p>
 
-        <a href="/google" class="btn btn-danger"><span class="bi bi-google"></span> Google</a>
+        <a href="/google" class="btngg"><span class="bi bi-googl"></span> Google</a>
 
     </div>
 

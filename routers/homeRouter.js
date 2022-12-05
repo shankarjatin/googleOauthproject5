@@ -7,12 +7,24 @@ require("../passport-setup")
 const cookieSession = require('cookie-session')
 const passport =require("passport");
 const bodyParser = require("body-parser");
+const nodemailer = require("nodemailer");
 Router.use(bodyParser.json()) // for parsing application/json
 Router.use(bodyParser.urlencoded({ extended: true }))
-
-
-
 const Razorpay = require('razorpay')
+
+const transporter = nodemailer.createTransport({
+  service:"hotmail",
+  auth :{
+      user: "shankarjatin1005@outlook.com",
+      pass: "Jatin@1003"
+  }
+})
+
+
+
+
+
+
 
 const razorpay = new Razorpay({
 key_id: "rzp_test_iQsqC7JbMx1RM2",
@@ -73,12 +85,18 @@ Router.post("/good",async(req,res)=>{
           const {
               name,
               email,
+              branch,
+              student_no,
+              roll_no,
               year
           }=req.body;
           
                              const  userData = new HomeSchema({
                               name,
                               email,
+                              branch,
+                              student_no,
+                              roll_no,
                               year
                              })
                              userData.save( err=>{
@@ -94,8 +112,35 @@ Router.post("/good",async(req,res)=>{
                                     console.log(data)
                                   }
                                 })
+
+
+
+                                const useremail = HomeSchema.findOne({email:email})
+                                    const options1 ={
+                                        from: "shankarjatin1005@outlook.com",
+                                        to: req.body.email,
+                                        subject: "Sign-up Notification!",
+                                       html:'<h1>Payment Successful! and You have been Registered</h1><br><h1>Welcome !</h1>'
+                                    
+                                        };
+                                      
+                                            transporter.sendMail(options1,  (err, info)=> {
+                                                if(err){
+                                                console.log(err);
+                                                return;
+                                                }
+                                                console.log("Sent: " + info.response);
+                                                })
+
+
+
+
+
+
+
+
                                 // var user = HomeSchema.find({name})
-                                res.render("pages/payment",{name:req.user.displayName,year:year,email:email}) 
+                                res.render("pages/payment",{name:req.user.displayName,year:year,email:email,year:year,branch:branch,student_no:student_no,roll_no:roll_no}) 
                                 // user.exec(function(err,data){
                                 //   if(err){console.log(err)}
                                 //   else{

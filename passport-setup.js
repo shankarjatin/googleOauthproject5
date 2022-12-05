@@ -25,10 +25,17 @@ passport.use(new GoogleStrategy({
     callbackURL:"http://localhost:3000/google/callback",
     passReqToCallback:true
   },
-  function(request, accessToken, refreshToken, profile, done) {
+  function(request, accessToken, refreshToken, profile, done, ) {
     console.log(profile);
     return done(null,profile)
-  
+    // if(profile._json.domain === "akgec.ac.in")
+    // { console.log(profile);
+    //   return done(null,profile)
+    // }
+    // else{
+    //   res.send("Login with College email id")
+    //  }
+    
   }
     ))
 

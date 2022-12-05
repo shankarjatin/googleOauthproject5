@@ -18,7 +18,16 @@ const userSchema = new schema({
     orderId:{
         type:String,
         required:false
-    }
+    },
+    branch:{
+        type:String
+    },
+    student_no:{
+        type:Number
+    },
+    roll_no:{
+        type:Number
+    },
     // name:{
     //     type:String,
     //     required:true

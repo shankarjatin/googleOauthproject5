@@ -5,28 +5,40 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <style>
-        body        { padding-top:80px; word-wrap:break-word; }
+        body        { padding-top:80px; word-wrap:break-word;
+        background-color:  #ffbf00; }
+        /* #googleinfo{
+            background-color:  #a67c00;
+        } */
+        .well{
+            background-color: #fbdd47;
+
+        }
+        .btn-primary{
+            background-color: #936e07;
+        }
+
     </style>
 </head>
 <body>
 <div class="container">
 
     <div class="page-header text-center">
-        <h1><span class="bi bi-google"></span> YOur Profile</h1>
+        <h1><span class="bi bi-google"></span> Register Yourself</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
 
     <div class="row">
 
         <!-- GOOGLE INFORMATION -->
-        <div class="col-sm-6">
+        <div class="col-sm-6" id="googleinfo">
             <div class="well">
                 <h3 class="text-danger"><span class="bi bi-google"></span> Google</h3>
 
                     <p>
-                        <strong>email</strong>: <%= email %><br>
-                        <strong>name</strong>: <%= name %><br>
-                        <strong>pic</strong>: <img src="<%=pic%>" width="100" height="100" alt="">
+                        <strong>Email</strong>: <%= email %><br>
+                        <strong>Name</strong>: <%= name %><br>
+                        <strong>Profile</strong>: <img src="<%=pic%>" width="100" height="100" alt="">
                     </p>
 
             </div>
@@ -47,26 +59,45 @@
             </div>
           </div>
 
+          <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Branch</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="branch" id="inputEmail3"  >
+            </div>
+          </div>
 
+          <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Roll number</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" name="roll_no" id="inputEmail3"  >
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Student number</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" name="student_no" id="inputEmail3"  >
+            </div>
+          </div>
+          
 
 
         <fieldset class="row mb-3">
           <legend class="col-form-label col-sm-2 pt-0">Year</legend>
           <div class="col-sm-10">
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="year" id="gridRadios1"  >
+              <input class="form-check-input" type="radio" name="year" id="gridRadios1" value="1st Year" >
               <label class="form-check-label" for="gridRadios1">
                 First year
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="year" id="gridRadios2" >
+              <input class="form-check-input" type="radio" name="year" id="gridRadios2" value="2nd Year">
               <label class="form-check-label" for="gridRadios2">
                 Second year
               </label>
             </div>
             <div class="form-check disabled">
-              <input class="form-check-input" type="radio" name="year" id="gridRadios3" >
+              <input class="form-check-input" type="radio" name="year" id="gridRadios3" value="3rd Year">
               <label class="form-check-label" for="gridRadios3">
                 Third year
               </label>

@@ -7,19 +7,29 @@
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>welcome to payment portal</h1>
-    
-        <ul>
-            <li><%= name %></li>
-            <li><%= email %></li>
-            <li><%= year %></li>
-        </ul>
+    <h1>Review Details</h1>
+    <main>
+        <ol class="gradient-list">
+            <li>Name: <%= name %></li>
+            <li>Email: <%= email %></li>
+            <li>Year <%= year %></li>
+            <li>Branch: <%= branch %></li>
+            <li>Student number: <%= student_no %></li>
+            <li>Roll number: <%= roll_no %></li>
+         
+        </ol>
+      </main>
+      
     <!-- <button id="rzp-button1">Pay Now</button> -->
     <form action="/is-order-complete" method="post">
-        <input type="text" class="form-control" name="name" id="inputEmail3" value="<%= name %>" >
-        <button type="submit"id="rzp-button1">Pay Now</button>
+        <input type="hidden" class="form-control" name="name" id="inputEmail3" value="<%= name %>" >
+        <div class="button-box">
+            <button type="submit" class="nineteen" id="rzp-button1"><span>Pay now</span> </button>
+        </div>
+        
     </form>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
