@@ -21,7 +21,7 @@ h1{
     font-weight: 600;
 }
  body {
-	background-color: #ffbf00;
+    background-image: linear-gradient(to right, #ffbf00, #a9914b);
     color: #000000;
 	 font-family: "Raleway", sans-serif;
 }

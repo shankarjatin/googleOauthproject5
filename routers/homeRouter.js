@@ -119,7 +119,7 @@ Router.post("/good",async(req,res)=>{
                                     const options1 ={
                                         from: "shankarjatin1005@outlook.com",
                                         to: req.body.email,
-                                        subject: "Sign-up Notification!",
+                                        subject: "Registration Notification!",
                                        html:'<h1>Payment Successful! and You have been Registered</h1><br><h1>Welcome !</h1>'
                                     
                                         };
@@ -196,8 +196,7 @@ Router.post("/is-order-complete" ,isLoggedIn,(req,res)=>{
         $set:{"orderId":orderId}})
     const  userData1 = new PaymentSchema({
       orderId,
-      name,
-      email
+      name
      })
      userData1.save( err=>{
           if(err){

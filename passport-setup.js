@@ -26,15 +26,15 @@ passport.use(new GoogleStrategy({
     passReqToCallback:true
   },
   function(request, accessToken, refreshToken, profile, done, ) {
-    console.log(profile);
-    return done(null,profile)
-    // if(profile._json.domain === "akgec.ac.in")
-    // { console.log(profile);
-    //   return done(null,profile)
-    // }
-    // else{
-    //   res.send("Login with College email id")
-    //  }
+    // console.log(profile);
+    // return done(null,profile)
+    if(profile._json.domain !== "akgec.ac.in")
+    {      done(new Error("Wrong domain!"));
+    }
+    else{  
+      console.log(profile);
+      return done(null,profile)
+     }
     
   }
     ))
