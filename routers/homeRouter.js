@@ -91,7 +91,13 @@ Router.post("/good",async(req,res)=>{
               year
           }=req.body;
           
-                             const  userData = new HomeSchema({
+
+
+                             const usermail = await HomeSchema.findOne({email:email}) 
+                             if(usermail){res.render("pages/userexist")}
+                           else { 
+                            
+                            const  userData = new HomeSchema({
                               name,
                               email,
                               branch,
@@ -113,8 +119,6 @@ Router.post("/good",async(req,res)=>{
                                   }
                                 })
 
-
-
                                 const useremail = HomeSchema.findOne({email:email})
                                     const options1 ={
                                         from: "shankarjatin1005@outlook.com",
@@ -132,25 +136,11 @@ Router.post("/good",async(req,res)=>{
                                                 console.log("Sent: " + info.response);
                                                 })
 
-
-
-
-
-
-
-
-                                // var user = HomeSchema.find({name})
                                 res.render("pages/payment",{name:req.user.displayName,year:year,email:email,year:year,branch:branch,student_no:student_no,roll_no:roll_no}) 
-                                // user.exec(function(err,data){
-                                //   if(err){console.log(err)}
-                                //   else{
-                                //     res.render("pages/payment",{name:req.user.displayName,year:year,email:email}) 
-                                //   }
-                                // })
-                                  
-                               
-                             }})
-                 }
+                             
+                              
+                             }})}
+         }
   
 catch(e){
   console.log(e)
