@@ -173,7 +173,7 @@ Router.post("/is-order-complete" ,isLoggedIn,(req,res)=>{
   razorpay.payments.fetch(req.body.razorpay_payment_id).then((paymentDocument) => {
     if(paymentDocument.status == "captured")
     {
-      const email=req.user.emails[0].value
+      
       const name = req.user.displayName
     const orderId= req.body.razorpay_order_id
     // HomeSchema.orderId.aggregate( [
@@ -186,7 +186,8 @@ Router.post("/is-order-complete" ,isLoggedIn,(req,res)=>{
         $set:{"orderId":orderId}})
     const  userData1 = new PaymentSchema({
       orderId,
-      name
+      name,
+     
      })
      userData1.save( err=>{
           if(err){
