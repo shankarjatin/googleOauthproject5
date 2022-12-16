@@ -7,6 +7,14 @@ const userSchema = new schema({
         type:String
         
     },
+    email:{
+        type:String
+        
+    },
+    paymentStatus:{
+        type:String
+        
+    },
    
     orderId:{
         type:String,

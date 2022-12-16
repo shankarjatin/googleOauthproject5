@@ -124,7 +124,7 @@ Router.post("/good",async(req,res)=>{
                                         from: "shankarjatin1005@outlook.com",
                                         to: req.body.email,
                                         subject: "Registration Notification!",
-                                       html:'<h1>Payment Successful! and You have been Registered</h1><br><h1>Welcome !</h1>'
+                                       html:'<h1>You have been Registered</h1><br><h1>Welcome !</h1>'
                                     
                                         };
                                       
@@ -176,6 +176,8 @@ Router.post("/is-order-complete" ,isLoggedIn,(req,res)=>{
       
       const name = req.user.displayName
     const orderId= req.body.razorpay_order_id
+    const email = req.user.emails[0].value
+    const paymentStatus=paymentDocument.status
     // HomeSchema.orderId.aggregate( [
     //   {
     //     $addFields: { "orderId": orderId }
@@ -187,6 +189,9 @@ Router.post("/is-order-complete" ,isLoggedIn,(req,res)=>{
     const  userData1 = new PaymentSchema({
       orderId,
       name,
+      email,
+      paymentStatus
+
      
      })
      userData1.save( err=>{
@@ -196,8 +201,23 @@ Router.post("/is-order-complete" ,isLoggedIn,(req,res)=>{
             console.log("orderdata saved")
                     
          }})
-         res.send("Payment successful")
-
+        //  res.send("Payment successful")
+        res.render("pages/paymentDone",{name:req.user.displayName, orderId:orderId})
+        const options1 ={
+          from: "shankarjatin1005@outlook.com",
+          to: req.user.emails[0].value,
+          subject: "Payment Notification!",
+         html:'<h1>Payment Successful! and You have been Registered</h1><br><h1>Welcome !</h1>'
+      
+          };
+        
+              transporter.sendMail(options1,  (err, info)=> {
+                  if(err){
+                  console.log(err);
+                  return;
+                  }
+                  console.log("Sent: " + info.response);
+                  })
 
 
  

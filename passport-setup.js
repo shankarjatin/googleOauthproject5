@@ -23,6 +23,7 @@ passport.use(new GoogleStrategy({
     clientID:process.env.GOOGLE_CLIENT_ID,
     clientSecret:process.env.GOOGLE_CLIENT_SECRET,
     callbackURL:"https://hashes-registration-jatin.onrender.com/google/callback",
+    // callbackURL:"http://localhost:5000/google/callback",
     passReqToCallback:true
   },
   function(request, accessToken, refreshToken, profile, done, ) {

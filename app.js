@@ -5,6 +5,7 @@ const app = express()
 const mongoose = require("mongoose");
 const mongodb = require("mongodb");
 const bodyParser = require("body-parser");
+const port = process.env.PORT || 3000 ;
 const DB = "mongodb+srv://shankarjatin:jaiHanumanji@cluster0.b1no4tl.mongodb.net/userData4?retryWrites=true&w=majority";
 app.set("view engine","ejs")
 app.use(express.static("public"));
@@ -30,6 +31,6 @@ app.use(homeRouter);
 
 
 
-app.listen(3000,()=>{
+app.listen(port,()=>{
     console.log("server is live")
 })
